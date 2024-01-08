@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ejercicio3_Unidad11.UI.TabsPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <TabbedPage.Children>
+        <!-- Página de Listado de Personas -->
+        <NavigationPage Title="Personas" IconImageSource="personas_icon.png">
+            <x:Arguments>
+                <local:ListadoPersonasPage />
+            </x:Arguments>
+        </NavigationPage>
+
+        <!-- Página de Listado de Departamentos -->
+        <NavigationPage Title="Departamentos" IconImageSource="departamentos_icon.png">
+            <x:Arguments>
+                <local:ListadoDepartamentosPage />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+
+</TabbedPage>
