@@ -78,7 +78,7 @@ public class clsManejadoraPersonaDAL
         int personaBorrada = 0;
         HttpClient client = new HttpClient();
         HttpResponseMessage message;
-        string textoJSONRespuesta;
+        string mensajeJSON;
 
         try
         {
@@ -86,8 +86,8 @@ public class clsManejadoraPersonaDAL
 
             if (message.IsSuccessStatusCode)
             {
-                textoJSONRespuesta = await client.GetStringAsync(uri);
-                personaBorrada = JsonConvert.DeserializeObject<int>(textoJSONRespuesta);
+                mensajeJSON = await client.GetStringAsync(uri);
+                personaBorrada = JsonConvert.DeserializeObject<int>(mensajeJSON);
 
             }
         }
