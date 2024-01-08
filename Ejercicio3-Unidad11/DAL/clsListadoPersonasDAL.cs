@@ -17,20 +17,14 @@ namespace Ejercicio3_Unidad11.DAL;
             List<clsPersona> listadoPersonas = new List<clsPersona>();
             HttpClient client = new HttpClient();
             HttpResponseMessage message;
-            string textoJSONRespuesta;
+            string mensajeJSON;
 
-
-            //Hacemos el request del listado
             message = await client.GetAsync(uri);
 
-            //En caso de que salga bien
             if (message.IsSuccessStatusCode)
             {
-                //Guardamos el resultado en un JSON
-                textoJSONRespuesta = await client.GetStringAsync(uri);
-
-                //Instalamos el NuGet de NewtonSoft para poder de-serializar el JSON.
-                listadoPersonas = JsonConvert.DeserializeObject<List<clsPersona>>(textoJSONRespuesta);
+                mensajeJSON = await client.GetStringAsync(uri);
+                listadoPersonas = JsonConvert.DeserializeObject<List<clsPersona>>(mensajeJSON);
 
             }
 
@@ -40,30 +34,24 @@ namespace Ejercicio3_Unidad11.DAL;
         public async static Task<clsPersona> DetailsPersonaDAL(int id)
         {
 
-            //Pedimos la uri
-            string miCadenaURL = "";
-
-            //Esto es para que el enrutamiento salga bien
-            Uri miUri = new Uri($"{miCadenaURL}Personas/{id}");
+            string stringURL = "";
+            Uri uri = new Uri($"{stringURL}Personas/{id}");
 
             clsPersona oPersona = new clsPersona();
             HttpClient client = new HttpClient();
             HttpResponseMessage message;
-            string textoJSONRespuesta;
+            string mensajeJSON;
 
             try
             {
                 //Hacemos el request del listado
-                message = await client.GetAsync(miUri);
+                message = await client.GetAsync(uri);
 
                 //En caso de que salga bien
                 if (message.IsSuccessStatusCode)
                 {
-                    //Guardamos el resultado en un JSON
-                    textoJSONRespuesta = await client.GetStringAsync(miUri);
-
-                    //Instalamos el NuGet de NewtonSoft para poder de-serializar el JSON.
-                    oPersona = JsonConvert.DeserializeObject<clsPersona>(textoJSONRespuesta);
+                    mensajeJSON = await client.GetStringAsync(uri);
+                    oPersona = JsonConvert.DeserializeObject<clsPersona>(mensajeJSON);
 
                 }
             }

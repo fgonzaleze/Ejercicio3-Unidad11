@@ -1,4 +1,5 @@
-﻿using Ejercicio3_Unidad11.Entities;
+﻿using Ejercicio3_Unidad11.DAL;
+using Ejercicio3_Unidad11.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace Ejercicio3_Unidad11.BL
     {
         public async static Task<List<clsDepartamento>> ListadoCompletoDepartamentosBL()
         {
-            //llamamos a la lista de personas de la capa DAL
-            List<clsDepartamento> listadosDepartamentosBL = await clsListadoDepartamentosDAL.ListadoCompletoDepartamentosDAL();
+            List<clsDepartamento> listadosDepartamentosBL = await clsDepartamentosDAL.ListadoCompletoDepartamentosDAL();
 
 
             return listadosDepartamentosBL;
@@ -20,8 +20,7 @@ namespace Ejercicio3_Unidad11.BL
 
         public async static Task<clsDepartamento> readDetailsDepartamentoBL(int idDepartamento)
         {
-            //Ponemos await porque está función deberá esperar que la capa DAL haga el request
-            clsDepartamento oDepartamento = await clsListadoDepartamentosDAL.readDetailsDepartamentoDAL(idDepartamento);
+            clsDepartamento oDepartamento = await clsDepartamentosDAL.readDetailsDepartamentoDAL(idDepartamento);
 
             return oDepartamento;
 
