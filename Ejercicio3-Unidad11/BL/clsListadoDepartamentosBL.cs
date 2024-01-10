@@ -18,9 +18,9 @@ namespace Ejercicio3_Unidad11.BL
             return listadosDepartamentosBL;
         }
 
-        public async static Task<clsDepartamento> readDetailsDepartamentoBL(int idDepartamento)
+        public async static Task<clsDepartamento> DetailsDepartamentoBL(int idDepartamento)
         {
-            clsDepartamento oDepartamento = await clsDepartamentosDAL.readDetailsDepartamentoDAL(idDepartamento);
+            clsDepartamento oDepartamento = await clsDepartamentosDAL.DetailsDepartamento(idDepartamento);
 
             return oDepartamento;
 

@@ -1,41 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Ejercicio3_Unidad11.MainPage">
-
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
-    </ScrollView>
-
+             xmlns:model="clr-namespace:Ejercicio3_Unidad11.UI.ViewModels"
+             x:Class="Ejercicio3_Unidad11.MainPage"
+             xmlns:VM="clr-namespace:Ejercicio3_Unidad11.UI.ViewModels"
+             xmlns:Model="clr-namespace:Ejercicio3_Unidad11.Entities"
+             Title="ListaPersonasView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ActivityIndicator IsVisible="{Binding Cargando}"
+                           IsRunning="True"/>
+        <HorizontalStackLayout Grid.Row="0"
+                               HorizontalOptions="End"
+                               VerticalOptions="End"
+                               Padding="20"
+                               Spacing="10">
+        </HorizontalStackLayout>
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout
+                Padding="20"
+                Spacing="20">
+                <HorizontalStackLayout VerticalOptions="StartAndExpand" Grid.Row="0" HorizontalOptions="Center">
+                    <SearchBar BackgroundColor="Beige"
+                       Placeholder="Buscar"
+                        MinimumWidthRequest="100"
+                        Text="{Binding Busqueda, Mode=TwoWay}"
+                        SearchCommand="{Binding BuscarCommand}"/>
+                </HorizontalStackLayout>
+                <ListView
+                    ItemsSource="{Binding ListadoDePersonasMostrado}"
+                    SelectedItem="{Binding PersonaSeleccionada}"
+                    RowHeight="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="Model:clsPersona">
+                            <ViewCell>
+                                <Frame CornerRadius="10" BorderColor="Black">
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Image Source="{Binding Foto}" WidthRequest="100" HorizontalOptions="Start"/>
+                                        <VerticalStackLayout Spacing="20">
+                                            <Label Text="{Binding Nombre}"/>
+                                            <Label Text="{Binding Apellido}"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Spacing="20">
+                                            <Label Text="{Binding Telefono}"/>
+                                            <Label Text="{Binding FechaNac}"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

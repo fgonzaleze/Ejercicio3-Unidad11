@@ -11,65 +11,46 @@ namespace Ejercicio3_Unidad11.DAL
 {
     public static class clsDepartamentosDAL
     {
+        private static HttpClient cliente = new HttpClient();
+        private static string urlConexion = clsConnection.connection();
         public async static Task<List<clsDepartamento>> ListadoCompletoDepartamentosDAL()
         {
-            string miCadenaURL = clsConnection.connection();
-            Uri miUri = new Uri($"{miCadenaURL}Departamentos");
-
+            Uri uri = new Uri($"{urlConexion}Departamentos");
             List<clsDepartamento> listadoDepartamentos = new List<clsDepartamento>();
-            HttpClient client = new HttpClient();
-            HttpResponseMessage message;
-            string mensajeJSON;
+            HttpResponseMessage mensaje = await cliente.GetAsync(uri);
 
-            try
+            if (mensaje.IsSuccessStatusCode)
             {
-                message = await client.GetAsync(miUri);
-
-                if (message.IsSuccessStatusCode)
-                {
-                    mensajeJSON = await client.GetStringAsync(miUri);
-                    listadoDepartamentos = JsonConvert.DeserializeObject<List<clsDepartamento>>(mensajeJSON);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                string mensajeJSON = await cliente.GetStringAsync(uri);
+                listadoDepartamentos = JsonConvert.DeserializeObject<List<clsDepartamento>>(mensajeJSON);
             }
 
             return listadoDepartamentos;
         }
+    
 
-        public async static Task<clsDepartamento> readDetailsDepartamentoDAL(int idDepartamento)
+        public async static Task<clsDepartamento> DetailsDepartamento(int idDepartamento)
         {
-            string miCadenaURL = "";
+            Uri uri = new Uri($"{urlConexion}Departamentos/{idDepartamento}");
+            clsDepartamento departamento = new clsDepartamento();
+            HttpResponseMessage mensaje;
 
-            Uri miUri = new Uri($"{miCadenaURL}Departamentos/{idDepartamento}");
+        try
+        {
+            mensaje = await cliente.GetAsync(uri);
 
-            clsDepartamento oDepartamento = new clsDepartamento();
-            HttpClient client = new HttpClient();
-            HttpResponseMessage message;
-            string mensajeJSON;
-
-            try
+            if (mensaje.IsSuccessStatusCode)
             {
-                message = await client.GetAsync(miUri);
-
-                if (message.IsSuccessStatusCode)
-                {
-                    mensajeJSON = await client.GetStringAsync(miUri);
-                    oDepartamento = JsonConvert.DeserializeObject<clsDepartamento>(mensajeJSON);
-
-                }
+                string mensajeJSON = await cliente.GetStringAsync(uri);
+                departamento = JsonConvert.DeserializeObject<clsDepartamento>(mensajeJSON);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
 
-            return oDepartamento;
-
-
+        return departamento;
         }
     }
 }
